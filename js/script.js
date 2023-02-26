@@ -13,15 +13,14 @@ const displayPhone = (phones) => {
   const noFound = document.getElementById("no-phone-msg");
   if (phones.length == 0) {
     noFound.classList.remove("hidden");
-  }
-  else{
+  } else {
     noFound.classList.add("hidden");
   }
 
   phones.forEach((phone) => {
     const newElement = document.createElement("div");
     newElement.innerHTML = `
-        <div class="shadow-xl rounded-lg w-56 p-5 space-y-4 text-white">
+        <div class="shadow-2xl rounded-lg w-64 p-5 space-y-4 text-white  ">
         <img class="rounded-2xl w-fit mx-auto" src="${phone.image}" alt="">
         <h1><span class="font-semibold">Brand</span> : ${phone.brand} </h1>
         <h1><span class="font-semibold">Name</span> : ${phone.phone_name}</h1>
@@ -30,11 +29,23 @@ const displayPhone = (phones) => {
     `;
     container.appendChild(newElement);
   });
+  toggleSpinner(false);
 };
+
 
 document.getElementById("search-btn").addEventListener("click", function () {
   const value = document.getElementById("search-field").value;
+  toggleSpinner(true);
   loadPhone(value);
 });
+
+const toggleSpinner = (isLoading) => {
+  const loaderSection = document.getElementById("loader");
+  if (isLoading) {
+    loaderSection.classList.remove("hidden");
+  } else {
+    loaderSection.classList.add("hidden");
+  }
+};
 
 loadPhone("a");
